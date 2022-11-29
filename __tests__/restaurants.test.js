@@ -18,6 +18,23 @@ describe('restaurant routes', () => {
     });
   });
 
+  it('GET /api/v1/restaurants/:restId shows restaurant detail including a list of reviews', async () => {
+    const response = await request(app).get('/api/v1/restaurants/1');
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({
+      id: expect.any(String),
+      name: expect.any(String),
+      cuisine: expect.any(String),
+      cost: expect.any(String),
+      image: expect.any(String),
+      website: expect.any(String),
+      reviews: {
+        stars: expect.any(Number),
+        detail: expect.any(String),
+      },
+    });
+  });
+
   afterAll(() => {
     pool.end();
   });
