@@ -43,7 +43,7 @@ describe('review routes', () => {
       .post('/api/v1/restaurants/2/reviews')
       .send({ stars: 5, detail: 'It was okay' });
     expect(response.status).toBe(200);
-    expect(response.body).toMatchInlineSnapshot();
+    expect(response.body).toMatchInlineSnapshot(`""`);
   });
 
   afterAll(() => {
