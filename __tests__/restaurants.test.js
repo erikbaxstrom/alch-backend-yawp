@@ -25,7 +25,7 @@ describe('restaurant routes', () => {
       id: expect.any(String),
       name: expect.any(String),
       cuisine: expect.any(String),
-      cost: expect.any(String),
+      cost: expect.any(Number),
       image: expect.any(String),
       website: expect.any(String),
       reviews: {
