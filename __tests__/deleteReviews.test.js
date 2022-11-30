@@ -38,40 +38,30 @@ describe('review routes', () => {
     const setupPool = setup(pool);
     //log in test user and create a review
     const [agent] = await registerAndLogin();
-    //todo create review
     await agent
       .post('/api/v1/restaurants/2/reviews')
       .send({ stars: 3, detail: 'junk review to be deleted' });
-    // return setup(pool);
     return setupPool;
   });
 
-  //test: not logged in
   it('DELETE /api/v1/reviews/:id fails if user not logged in', async () => {
-    // do not log in. just try to delete. should 401
     const response = await request(app).delete('/api/v1/reviews/4');
     expect(response.status).toBe(401);
   });
 
-  // test: logged in but wrong user
   it('DELETE /api/v1/reviews/:id fails if user did not create review', async () => {
-    // log in as user2, try to delete. should 401
     const [agent2] = await registerAndLogin(testUser2);
     const response = await agent2.delete('/api/v1/reviews/4');
     expect(response.status).toBe(401);
   });
 
-  // test: logged in and correct user
   it('DELETE /api/v1/reviews/:id succeeds if user created the review', async () => {
-    // log in as test user, try to delete. should 204
     const [agent] = await registerAndLogin();
     const response = await agent.delete('/api/v1/reviews/4');
     expect(response.status).toBe(204);
   });
 
-  // test: logged in as admin
   it('DELETE /api/v1/reviews/:id succeeds if user created the review', async () => {
-    // log in as admin, try to delete. should 204
     const [agentAdmin] = await registerAndLogin(testAdmin);
     const response = await agentAdmin.delete('/api/v1/reviews/4');
     expect(response.status).toBe(204);
