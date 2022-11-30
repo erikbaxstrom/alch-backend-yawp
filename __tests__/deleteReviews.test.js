@@ -35,13 +35,15 @@ const registerAndLogin = async (userProps = {}) => {
 
 describe('review routes', () => {
   beforeEach(async () => {
+    const setupPool = setup(pool);
     //log in test user and create a review
     const [agent] = await registerAndLogin();
     //todo create review
     await agent
       .post('/api/v1/restaurants/2/reviews')
       .send({ stars: 3, detail: 'junk review to be deleted' });
-    return setup(pool);
+    // return setup(pool);
+    return setupPool;
   });
 
   //test: not logged in
